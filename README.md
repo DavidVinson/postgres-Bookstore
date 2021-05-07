@@ -1,4 +1,4 @@
-# Awesome Reads
+# Postgres Bookstore
 
 Welcome to Awesome Reads! 
 
