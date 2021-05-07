@@ -14,12 +14,26 @@ function addClickHandlers() {
     // console.log(delBookID);
     $.ajax({
       method: 'DELETE',
-      url: `/books/${delBookID}`})
-    .then((response) => {
+      url: `/books/${delBookID}`
+    }).then((response) => {
       console.log('Book deleted:', delBookID);
       refreshBooks();
+    }).catch((error) => {
+      console.log('Sorry, there was a problem with the delete');
     })
-    .catch((error) => {
+  })
+
+  $('#bookShelf').on('click', '.btn-read', function(event) {
+    console.log('read btn clicked');
+    let bookID = event.target.dataset.id;
+    // console.log(delBookID);
+    $.ajax({
+      method: 'PUT',
+      url: `/books/${bookID}`
+    }).then((response) => {
+      console.log('Book read:', bookID);
+      refreshBooks();
+    }).catch((error) => {
       console.log('Sorry, there was a problem with the delete');
     })
   })
