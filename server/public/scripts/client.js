@@ -70,6 +70,8 @@ function refreshBooks() {
   }).then(function(response) {
     console.log(response);
     renderBooks(response);
+    $('#title').val('');
+    $('#author').val('');
   }).catch(function(error){
     console.log('error in GET', error);
   });
@@ -100,6 +102,8 @@ function renderBooks(books) {
         <td>${book.author}</td>
         <td>${isReadBtn}</td>
         <td><button class="btn-del" data-id=${book.id}>Delete</button></td>
+        <td><button class="btn-edit" data-id=${book.id}>Edit</button></td>
+
       </tr>
     `);
   }
