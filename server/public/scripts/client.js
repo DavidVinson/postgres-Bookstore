@@ -31,7 +31,7 @@ function addClickHandlers() {
       method: 'PUT',
       url: `/books/${bookID}`
     }).then((response) => {
-      console.log('Book read:', bookID);
+      console.log('Book read:', bookID);      
       refreshBooks();
     }).catch((error) => {
       console.log('Sorry, there was a problem with the delete');
@@ -82,13 +82,24 @@ function renderBooks(books) {
 
   for(let i = 0; i < books.length; i += 1) {
     let book = books[i];
+    let isReadBtn;
+    //check db for isRead=TRUE
+    if (book.isRead) {
+      console.log(book.isRead);
+      //build button based on isRead
+      isReadBtn = `<button class="btn-read red" data-id=${book.id}>Read</button>`; 
+    }
+    else {
+      isReadBtn = `<button class="btn-read green" data-id=${book.id}>Not Read</button>`;
+
+    }
     // For each book, append a new row to our table
     $('#bookShelf').append(`
       <tr>
         <td>${book.title}</td>
         <td>${book.author}</td>
-        <td><button data-id=${book.id} class="btn-read">Not Read</button></td>
-        <td><button data-id=${book.id} class="btn-del">Delete</button></td>
+        <td>${isReadBtn}</td>
+        <td><button class="btn-del" data-id=${book.id}>Delete</button></td>
       </tr>
     `);
   }

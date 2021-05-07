@@ -28,4 +28,18 @@ th {
   text-align: left;
 }
 
+.btn-read {
+  width: 80px;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
 
