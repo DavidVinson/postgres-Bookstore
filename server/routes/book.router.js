@@ -61,12 +61,11 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // console.log(req.params.id);
   let bookID = req.params.id;
-  //if there were other data to update; get them from req.body
   //the "id"=$1 is a placeholder value to guard against sql injection
   let sqlText = `DELETE FROM "books" WHERE "id"=$1;`;
   pool.query(sqlText, [bookID]) // [bookID] replaces $1 in sqlText
   .then((results) => {
-    //there are no results being returned; we changed db value
+    //there are no results being returned; a row was deleted
     res.status(200).send(`Book ${bookID} has been deleted`);
   })
   .catch((error) => {
