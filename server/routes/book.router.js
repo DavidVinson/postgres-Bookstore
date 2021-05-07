@@ -39,12 +39,15 @@ router.post('/',  (req, res) => {
 // Request must include a parameter indicating what book to update - the id
 // Request body must include the content to update - the status
 router.put('/:id', (req, res) => {
-  // console.log(req.body.params.id);
+  // console.log(req.params.id);
   let bookID = req.params.id;
+  //if there were other data to update; get them from req.body
+  //the "id"=$1 is a placeholder value to guard against sql injection
   let sqlText = `UPDATE "books" SET "isRead"=TRUE WHERE "id"=$1;`;
-  pool.query(sqlText, [bookID])
+  pool.query(sqlText, [bookID]) // [bookID] replaces $1 in sqlText
   .then((results) => {
-    res.status(200).send(results.rows);
+    //there are no results being returned; we changed db value
+    res.status(200).send(`Book ${bookID} has been read`);
   })
   .catch((error) => {
     console.log('Something went wrong', error);
@@ -55,6 +58,23 @@ router.put('/:id', (req, res) => {
 // TODO - DELETE 
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
+router.delete('/:id', (req, res) => {
+  // console.log(req.params.id);
+  let bookID = req.params.id;
+  //if there were other data to update; get them from req.body
+  //the "id"=$1 is a placeholder value to guard against sql injection
+  let sqlText = `DELETE FROM "books" WHERE "id"=$1;`;
+  pool.query(sqlText, [bookID]) // [bookID] replaces $1 in sqlText
+  .then((results) => {
+    //there are no results being returned; we changed db value
+    res.status(200).send(`Book ${bookID} has been deleted`);
+  })
+  .catch((error) => {
+    console.log('Something went wrong', error);
+    res.sendStatus(500);
+  })
+});
+
 
 
 module.exports = router;
